@@ -2,6 +2,16 @@
     <span class="visually-hidden">Loading...</span>
 </div>
 
+<div class="mb-3">
+    <label for="filterText" class="form-label">Ürün Ara : </label>
+    <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText"
+        placeholder="Arama İfadesi Giriniz">
+</div>
+
+<div *ngIf="filterText" class="alert alert-success">
+    {{filterText}} Aradınız.
+</div>
+
 <table *ngIf="dataLoaded==true" class="table">
     <thead>
         <tr>
@@ -9,15 +19,17 @@
             <th>Ürün Adı</th>
             <th>Kategori</th>
             <th>Fiyat</th>
+            <th>KDV Dahil Fiyat</th>
             <th>Stok Adedi</th>
         </tr>
     </thead>
 
-    <tr *ngFor="let item of products">
+    <tr *ngFor="let item of products | filterPipe:filterText">
         <td>{{item.productId}}</td>
-        <td>{{item.productName}}</td>
+        <td>{{item.productName | uppercase}}</td>
         <td>{{item.categoryId}}</td>
-        <td>{{item.unitPrice}}</td>
+        <td>{{item.unitPrice | currency}}</td>
+        <td>{{item.unitPrice | vatAdded:18 | currency}}</td>
         <td>{{item.unitsInStock}}</td>
     </tr>
 </table>

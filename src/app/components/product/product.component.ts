@@ -12,14 +12,16 @@ export class ProductComponent implements OnInit {
 
   products: Product[] = []
   dataLoaded = false;
+  filterText = "";
+
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params=>{
-      if(params["categoryId"]){
+    this.activatedRoute.params.subscribe(params => {
+      if (params["categoryId"]) {
         this.getProductsByCategoryId(params["categoryId"]);
       }
-      else{
+      else {
         this.getProducts();
       }
     })
