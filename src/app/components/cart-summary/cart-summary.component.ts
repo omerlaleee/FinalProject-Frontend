@@ -27,4 +27,14 @@ export class CartSummaryComponent implements OnInit {
     this.cartService.removeFromCart(product);
     this.toastrService.error("Sepetten Silindi!", product.productName);
   }
+
+  decreaseFromCart(product:Product){
+    this.cartService.decreaseFromCart(product);
+    this.toastrService.warning("Ürün Miktarı Azaltıldı!", product.productName);
+  }
+
+  increaseFromCart(product:Product){
+    this.cartService.increaseFromCart(product);
+    this.toastrService.info("Ürün Miktarı Arttırıldı!", product.productName);
+  }
 }
