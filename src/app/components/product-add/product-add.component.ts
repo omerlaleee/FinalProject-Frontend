@@ -35,8 +35,12 @@ export class ProductAddComponent implements OnInit {
           this.toastrService.success(response.message, "Başarılı");
         },
         responseError => {
-          console.log(responseError);
-          this.toastrService.error(responseError.error, "Hata");
+          if (responseError.error.ValidationErrors.length > 0) {
+            // console.log(responseError.error.ValidationErrors);
+            for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage, "Doğrulama Hatası");
+            }
+          }
         });
     }
     else {
