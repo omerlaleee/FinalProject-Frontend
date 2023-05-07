@@ -28,12 +28,18 @@ export class CartSummaryComponent implements OnInit {
     this.toastrService.error("Sepetten Silindi!", product.productName);
   }
 
-  decreaseFromCart(product:Product){
+  decreaseFromCart(product: Product) {
     this.cartService.decreaseFromCart(product);
-    this.toastrService.warning("Ürün Miktarı Azaltıldı!", product.productName);
+    if (this.cartService.getQuantityOfItem(product) == 0) {
+      this.cartService.removeFromCart(product);
+      this.toastrService.error("Sepetten Silindi!", product.productName);
+    }
+    else {
+      this.toastrService.warning("Ürün Miktarı Azaltıldı!", product.productName);
+    }
   }
 
-  increaseFromCart(product:Product){
+  increaseFromCart(product: Product) {
     this.cartService.increaseFromCart(product);
     this.toastrService.info("Ürün Miktarı Arttırıldı!", product.productName);
   }

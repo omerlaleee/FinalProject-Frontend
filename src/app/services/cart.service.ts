@@ -28,17 +28,22 @@ export class CartService {
     CartItems.splice(CartItems.indexOf(itemToBeRemoved), 1);
   }
 
-  decreaseFromCart(product: Product){
+  decreaseFromCart(product: Product) {
     let itemToBeDecreased: CartItem = CartItems.find(c => c.product.productId === product.productId);
     itemToBeDecreased.quantity--;
   }
 
-  increaseFromCart(product: Product){
+  increaseFromCart(product: Product) {
     let itemToBeDecreased: CartItem = CartItems.find(c => c.product.productId === product.productId);
     itemToBeDecreased.quantity++;
   }
 
   list(): CartItem[] {
     return CartItems;
+  }
+
+  getQuantityOfItem(product: Product) {
+    let item: CartItem = CartItems.find(c => c.product.productId === product.productId);
+    return item.quantity;
   }
 }
